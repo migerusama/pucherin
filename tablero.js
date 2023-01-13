@@ -137,7 +137,7 @@ function start() {
     class Tablero {
         posiciones
         constructor() {
-            this.posiciones = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, "puchero": 0, 8: 0, 9: 0, 10: 0, 11: 0 }
+            this.posiciones = { 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, "puchero": 0, 8: 0, 9: 0, 10: 0, 11: 0 }
         }
 
         isEmpty() {
@@ -211,6 +211,12 @@ function start() {
                     for (const key in tablero.posiciones) {
                         player.puntos += tablero.posiciones[key]
                         tablero.posiciones[key] = 0
+                    }
+                    for (let i = 2; i < 12; i++) {
+                        if (i > 7) pintarCasilla(canvases[i - 3], i, tablero.posiciones[i])
+                        else if (i == 7) {
+                            pintarCasilla(canvases[i - 2], i + 1, tablero.posiciones[i])
+                        } else pintarCasilla(canvases[i - 2], i, tablero.posiciones[i])
                     }
                 } else {
                     console.log(`Jugador ${player.id} gana ${tablero.posiciones[dado]} puntos`)

@@ -43,9 +43,10 @@ var tablero = new Tablero()
 var fin = false
 var noFichas = false
 var turno = 0
+var playerTurn = 0
 var winners = new Player(0, 0)
 
-document.getElementById("tirarDado").addEventListener("click", lanzarDados)
+document.getElementById("tirarDado").addEventListener("click", play)
 document.getElementById("volverBtn").addEventListener("click", () => {
     document.getElementById("volver").classList.toggle("hidden")
     togglePlayers()
@@ -85,6 +86,7 @@ function toggleModos() {
 
 function startGame() {
     crearPlayers()
+    var dado = 0
     if (gamemode == "auto") {
         toggleModos()
         document.getElementById("volver").classList.toggle("hidden")
@@ -146,13 +148,64 @@ function startGame() {
 }
 
 function play() {
-    lanzarDados()
+    let dado = lanzarDados()
+    turno++
+    let player = players[playerTurn]
+    log(`Turno: ${turno}`)
+    log(`Jugador: ${player.id}`)
+    log(`Número de fichas: ${player.num_fichas}`)
+    log("Lanzando dados...")
+    log(`Número: ${dado}`)
+    if (player.num_fichas > 0 && !noFichas) {
+        if (dado == 12) {
+            log(`Jugador ${player.id} gana ${tablero.posiciones["puchero"]} puntos`)
+            player.puntos += tablero.posiciones["puchero"]
+            tablero.posiciones["puchero"] = 0
+        } else if (dado == 7) {
+            log("Añadiendo ficha al puchero")
+            tablero.posiciones["puchero"]++
+        } else {
+            player.num_fichas--
+            tablero.posiciones[dado]++
+            if (tablero.posiciones[dado] == dado) {
+                log(`Jugador ${player.id} gana ${tablero.posiciones[dado]} puntos`)
+                player.puntos += tablero.posiciones[dado]
+                tablero.posiciones[dado] = 0
+            }
+        }
+    } else {
+        noFichas = true
+        if (dado == 7) {
+            log(`Jugador ${player.id} gana ${tablero.posiciones[dado]} puntos`)
+            player.puntos += tablero.posiciones["puchero"]
+            tablero.posiciones["puchero"] = 0
+        } else if (dado == 12) {
+            log(`Jugador ${player.id} gana todos los puntos del tablero`)
+            for (const key in tablero.posiciones) {
+                player.puntos += tablero.posiciones[key]
+                tablero.posiciones[key] = 0
+            }
+        } else {
+            log(`Jugador ${player.id} gana ${tablero.posiciones[dado]} puntos`)
+            player.puntos += tablero.posiciones[dado]
+            tablero.posiciones[dado] = 0
+        }
+        if (tablero.isEmpty()) {
+            fin = true
+            log("Partida finalizada")
+        }
+    }
+    log(`Tablero: ${tablero.print()}`)
+    playerTurn++
+    if (playerTurn = numPlayers) playerTurn = 0
 }
 
 function lanzarDados() {
+    var num = 0
     dados.forEach(dado => {
-        dado.innerText = Math.floor(Math.random() * (13 - 1 + 1)) + 1;
+        num += dado.innerText = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
     })
+    return num
 }
 
 function crearPlayers() {

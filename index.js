@@ -50,10 +50,10 @@ for (let i = 1; i <= numPlayers; i++) {
 do {
     turno++
     players.forEach(player => {
+        console.log(`-----------------`)
         console.log(`Turno: ${turno}`)
         console.log(`Jugador: ${player.id}`)
         console.log(`Número de fichas: ${player.num_fichas}`)
-        console.log(`-----------------`)
         console.log("Lanzando dados...")
         dado = Math.floor(Math.random() * (12 - 2 + 1) + 2)
         console.log(`Número: ${dado}`)
@@ -75,39 +75,33 @@ do {
                 }
             }
         } else {
-            noFichas = true
-            if (dado == 7) {
-                console.log(`Jugador ${player.id} gana ${tablero.posiciones[dado]} puntos`)
-                player.puntos += tablero.posiciones["puchero"]
-                tablero.posiciones["puchero"] = 0
-            } else if (dado == 12) {
-                console.log(`Jugador ${player.id} gana todos los puntos del tablero`)
-                for (const key in tablero.posiciones) {
-                    player.puntos += tablero.posiciones[key]
-                    tablero.posiciones[key] = 0
-                }
-            } else {
-                console.log(`Jugador ${player.id} gana ${tablero.posiciones[dado]} puntos`)
-                player.puntos += tablero.posiciones[dado]
-                tablero.posiciones[dado] = 0
-            }
             if (tablero.isEmpty()) {
                 fin = true
                 console.log("Partida finalizada")
+            } else {
+                noFichas = true
+                if (dado == 7) {
+                    console.log(`Jugador ${player.id} gana ${tablero.posiciones[dado]} puntos`)
+                    player.puntos += tablero.posiciones["puchero"]
+                    tablero.posiciones["puchero"] = 0
+                } else if (dado == 12) {
+                    console.log(`Jugador ${player.id} gana todos los puntos del tablero`)
+                    for (const key in tablero.posiciones) {
+                        player.puntos += tablero.posiciones[key]
+                        tablero.posiciones[key] = 0
+                    }
+                } else {
+                    console.log(`Jugador ${player.id} gana ${tablero.posiciones[dado]} puntos`)
+                    player.puntos += tablero.posiciones[dado]
+                    tablero.posiciones[dado] = 0
+                }
             }
         }
         console.log(`Tablero: ${tablero.print()}`)
     })
 } while (!fin)
 
-var puntos = 0
+players = players.sort((a, b) => b.puntos - a.puntos)
 
-players.forEach(player => {
-    if (player.puntos > puntos) {
-        puntos = player.puntos
-        winners = player
-    }
-})
-
-console.log(`El ganador es el jugador ${winners.id} con ${winners.puntos} puntos`)
+console.log(`El ganador es el jugador ${players[0].id} con ${players[0].puntos} puntos`)
 
