@@ -1,0 +1,15 @@
+.hidden {
+    display: none
+}
+
+.w-10 {
+    width: 10%;
+}
+
+body {
+    background-color: gray;
+}
+
+textarea {
+    resize: none;
+}
