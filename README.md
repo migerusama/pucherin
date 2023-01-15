@@ -1,4 +1,4 @@
-# Pucheritn
+# Pucherin
 
 - El juego en consola y el juego por la interfaz gráfica tienen sus archivos html y js separados.
 - La versión subida a gitHub Pages es la versión gráfica, pero esta pendiente de algunos cambios por el momento.
