@@ -36,7 +36,6 @@ var players = []
 var tablero = new Tablero()
 var fin = false
 var noFichas = false
-var turno = 0
 var winners = new Player(0, 0)
 
 do {
@@ -51,7 +50,6 @@ do {
     turno++
     players.forEach(player => {
         console.log(`-----------------`)
-        console.log(`Turno: ${turno}`)
         console.log(`Jugador: ${player.id}`)
         console.log(`Número de fichas: ${player.num_fichas}`)
         console.log("Lanzando dados...")
@@ -104,4 +102,3 @@ do {
 players = players.sort((a, b) => b.puntos - a.puntos)
 
 console.log(`El ganador es el jugador ${players[0].id} con ${players[0].puntos} puntos`)
-

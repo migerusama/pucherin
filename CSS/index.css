@@ -1,0 +1,33 @@
+.hidden {
+    display: none
+}
+
+.w-10 {
+    width: 10%;
+}
+
+body {
+    background-color: gray;
+}
+
+textarea {
+    resize: none;
+}
+
+.box {
+    position: relative;
+    width: 900px;
+    height: 650px;
+}
+
+.casilla {
+    position: absolute;
+
+}
+
+.puchero {
+    margin: 0;
+    position: absolute;
+    top: 41%;
+    left: 41%;
+}
