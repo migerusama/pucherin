@@ -70,8 +70,8 @@ var canvases = document.querySelectorAll('.casilla')
 for (var i = 0; i < canvases.length; i++) {
     var ctx = canvases[i].getContext('2d')
     ctx.beginPath()
-    canvases[i].style.left = (Math.cos(2 * Math.PI * i / casillas) * 500 + 550 - 25) / window.innerHeight * 100 + '%'
-    canvases[i].style.top = (Math.sin(2 * Math.PI * i / casillas) * 500 + 550 - 25) / window.innerHeight * 100 + '%'
+    canvases[i].style.left = (Math.cos(2 * Math.PI * i / casillas) * 400 + 450 - 25) / window.outerHeight * 100 + '%'
+    canvases[i].style.top = (Math.sin(2 * Math.PI * i / casillas) * 400 + 450 - 25) / window.outerHeight * 100 + '%'
     if (i > 4) pintarCasilla(canvases[i], i + 3)
     else pintarCasilla(canvases[i], i + 2)
 }
