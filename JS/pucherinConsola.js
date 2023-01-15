@@ -12,6 +12,7 @@ class Player {
     return dice1 + dice2;
   }
 }
+
 var tablero = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // Array para almacenar el tablero
 var players = []; // Array para almacenar los jugadores
 var currentPlayer; // Variable que almacena el índice del jugador actual
@@ -33,6 +34,7 @@ function startGame() {
   currentPlayer = 0;
   showTurn();
 }
+
 function showTurn() {
   console.log(`[${players[currentPlayer].name}]`);
   // Funcion que muestra el turno
@@ -47,32 +49,35 @@ function showTurn() {
     playTurn();
   }
 }
+
 function playTurn() {
   diceSum = null;
   diceSum = players[currentPlayer].throwDice();
   if (!p2Reached) play();
   else playPhase2();
 }
+
 function play() {
-  console.log(`El ${players[currentPlayer].name} ha sacado un ${diceSum}`);
   //Validar si el jugador ha sacado un 12
   if (diceSum == 12) {
     console.log(
       `El ${players[currentPlayer].name} ha sacado un 12 y se lleva ${tablero[5]} fichas del puchero !`
     );
-    console.log("---------------------");
     players[currentPlayer].fichas--;
     players[currentPlayer].puntos += tablero[5];
     tablero[5] = 0;
+    console.log(tablero);
+    console.log("---------------------");
   }
   //Validar si el jugador a sacado un 7
   else if (diceSum == 7) {
     console.log(
       `El ${players[currentPlayer].name} ha sacado un 7 y ha depositado una ficha en el puchero`
     );
-    console.log("---------------------");
     players[currentPlayer].fichas--;
     tablero[5]++;
+    console.log(tablero);
+    console.log("---------------------");
   }
   // Validar cantidad de fichas en la casilla
   else if (tablero[diceSum - 2] == diceSum - 1) {
@@ -84,7 +89,7 @@ function play() {
     tablero[diceSum - 2] = 0;
   } else {
     console.log(
-      `El ${players[currentPlayer].name} ha de positado una ficha en la casilla ${diceSum} `
+      `El ${players[currentPlayer].name} ha sacado un ${diceSum} y ha depositado una ficha en la casilla `
     );
     players[currentPlayer].fichas--;
     tablero[diceSum - 2]++;
@@ -98,14 +103,21 @@ function play() {
   } else {
     currentPlayer = 0;
     p2Reached = true;
-    console.log("Ya no quedan mas fichas! Empieza la fase final.");
-    ("---------------------");
+    console.log(
+      "************************************************************************"
+    );
+    console.log(
+      "Los jugadores ya no tienen más fichas! Tirad los dados hasta que el tablero este vacio!"
+    );
+    console.log(
+      "************************************************************************"
+    );
     showTurn();
   }
 }
+
 function playPhase2() {
   p2Reached = true;
-  console.log(`El ${players[currentPlayer].name} ha sacado un ${diceSum}`);
   // Comprobar si el jugador ha sacado un 12
   if (diceSum == 12) {
     for (var i = 0; i < tablero.length; i++) {
@@ -125,9 +137,6 @@ function playPhase2() {
         players[currentPlayer].name
       } ha sacado un ${diceSum} y se ha llevado ${tablero[diceSum - 2]} fichas`
     );
-    console.log(
-      `El ${players[currentPlayer].name} tiene ${players[currentPlayer].puntos}`
-    );
     tablero[diceSum - 2] = 0;
     console.log(tablero);
     console.log("---------------------");
@@ -139,19 +148,23 @@ function playPhase2() {
     endGame();
   }
 }
+
 function getGameMode() {
-  gameMode = prompt("Ingresa el modo de juego [manual/auto]");
+  gameMode = prompt("Ingresa el modo de juego [manual/auto]").toLowerCase();
   gameMode != "manual" && gameMode != "auto" ? getGameMode() : getNumPlayers();
 }
+
 function getNumPlayers() {
   numPlayers = prompt("Ingresa un numero de Jugadores válido [2-5]");
-  numPlayers != 2 && numPlayers != 3 && numPlayers != 4 && numPlayers && 5
+  numPlayers != 2 && numPlayers != 3 && numPlayers != 4 && numPlayers != 5
     ? getNumPlayers()
     : startGame();
 }
+
 function checkFichas() {
   return players[players.length - 1].fichas == 0 ? true : false;
 }
+
 function checkTableroVacio() {
   var sum = 0;
   for (var i = 0; i < tablero.length; i++) {
@@ -159,6 +172,7 @@ function checkTableroVacio() {
   }
   return sum == 0 ? true : false;
 }
+
 function endGame() {
   playingTurn = false;
   endGameReached = true;
@@ -179,6 +193,7 @@ function endGame() {
 
   console.log("Pulsa la tecla [R] para reiniciar la partida");
 }
+
 function reset() {
   players.length = 0;
   p2Reached = false;
@@ -187,6 +202,7 @@ function reset() {
   console.clear();
   getGameMode();
 }
+
 window.addEventListener("keyup", function (event) {
   if (playingTurn == true) {
     if (!endGameReached && event.code === "Space" && gameMode === "manual") {
@@ -195,9 +211,11 @@ window.addEventListener("keyup", function (event) {
     }
   }
 });
+
 window.addEventListener("keyup", function (event) {
   if (endGameReached == true && event.code === "KeyR") {
     reset();
   }
 });
+
 getGameMode();
