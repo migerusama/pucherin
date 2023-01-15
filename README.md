@@ -4,7 +4,7 @@
 - La versión subida a gitHub Pages es la versión gráfica, pero esta pendiente de algunos cambios por el momento.
 - **Tenemos una versión funcional del Juego en la consola del navegador en consolaIndex.html.**
 
-##Funcionamiento del Juego
+# Funcionamiento del Juego
 
 **El juego esta dividido en dos fases**.
 
