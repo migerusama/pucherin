@@ -53,11 +53,11 @@ function showTurn() {
 function playTurn() {
   diceSum = null;
   diceSum = players[currentPlayer].throwDice();
-  if (!p2Reached) play();
-  else playPhase2();
+  if (!p2Reached) playP1();
+  else playP2();
 }
 
-function play() {
+function playP1() {
   //Validar si el jugador ha sacado un 12
   if (diceSum == 12) {
     console.log(
@@ -116,7 +116,7 @@ function play() {
   }
 }
 
-function playPhase2() {
+function playP2() {
   p2Reached = true;
   // Comprobar si el jugador ha sacado un 12
   if (diceSum == 12) {

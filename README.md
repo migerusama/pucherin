@@ -2,7 +2,7 @@
 
 - El juego en consola y el juego por la interfaz gráfica tienen sus archivos html y js separados.
 - La versión subida a gitHub Pages es la versión gráfica, pero esta pendiente de algunos cambios por el momento.
-- **Tenemos una versión funcional del Juego en la consola del navegador en consolaIndex.html.**
+- **Tenemos una versión funcional del Juego en la consola del navegador en pucherinConsola.html.**
 
 # Funcionamiento del Juego
 
